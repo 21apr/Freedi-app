@@ -19,6 +19,9 @@ export interface Statement {
 		role?: string;
 	};
 	statementType: StatementType;
+	deliberativeElement?: DeliberativeElement;
+	color?: string;
+	followMe?: string;
 	parentId: string;
 	parents?: string[];
 	topParentId: string;
@@ -29,13 +32,10 @@ export interface Statement {
 	createdAt: number;
 	pro?: number;
 	con?: number;
-	consensus: number;
-	order?: number;
-	votes?: number;
-	voted?: number;
-	totalSubStatements?: number;
-	description?: string;
-	defaultLanguage?: string;
+	doc?: {
+		isDoc: boolean;
+		order: number;
+	};
 	evaluation?: {
 		agreement: number;
 		sumEvaluations: number;
@@ -43,16 +43,48 @@ export interface Statement {
 		sumPro?: number;
 		sumCon?: number;
 	};
+	consensus: number;
+	order?: number;
+	elementHight?: number;
+	top?: number;
+	votes?: number;
+	selections?: any;
+	isSelected?: boolean;
+	importanceData?: {
+		sumImportance: number;
+		numberOfUsers: number;
+		numberOfViews: number;
+	};
+	voted?: number;
+	totalSubStatements?: number;
+	description?: string;
+	defaultLanguage?: string;
 	totalEvaluators?: number;
 	isInMultiStage?: boolean;
+	documentSettings?: {
+		parentDocumentId: string;
+		order: number;
+		type: DocumentType;
+		isTop: boolean;
+	};
+	documentApproval?: DocumentApproval;
+	documentImportance?: DocumentImportance;
+	documentAgree?: Agree;
 	viewed?: {
 		individualViews?: number;
 	};
-	membership?: {
-		adminApproveMembers?: boolean;
-		access?: Access;
-		typeOfMembersAllowed?: membersAllowed;
+	stageId?: string | null;
+	stageType?: StageType;
+	creatorData?: UserData;
+	isChosen?: boolean;
+	chosenSolutions?: string[];
+	summary?: string;
+	steps?: {
+		currentStep: Step;
+		allSteps?: Step[];
 	};
+	questionSettings?: QuestionSettings;
+	membership?: Membership;
 	statementSettings?: {
 		show?: boolean;
 		hasChildren?: boolean;
@@ -68,8 +100,20 @@ export interface Statement {
 		deliberationType?: DeliberationType;
 		hasChat?: boolean;
 	};
-	stageType?: StageType;
-	stageId?: string | null;
+	resultsSettings?: {
+		resultsBy: ResultsBy;
+		cutoffNumber?: number;
+		numberOfResults?: number;
+		numberOfSelections?: number;
+		deep?: number;
+		minConsensus?: number;
+	};
+	results?: SimpleStatement[];
+	isResult?: boolean;
+	imagesURL?: {
+		main?: string;
+		more?: string[];
+	};
 }
 
 export enum Access {

@@ -1,4 +1,3 @@
-import { Collections } from 'delib-npm';
 import {
 	deleteEvaluation,
 	newEvaluation,
@@ -49,6 +48,7 @@ import { updateAgrees } from './fn_agree';
 import { setUserSettings } from './fn_users';
 import { updateStatementWithViews } from './fn_views';
 import { updateSettings } from './fn_statementsSettings';
+import { Collections } from '../../src/types/collection/Collection';
 
 initializeApp();
 export const db = getFirestore();
@@ -85,7 +85,10 @@ exports.updateNotifications = onDocumentCreated(
 
 //evaluations and results
 
-exports.onSetChoseBySettings = onDocumentWritten(`/${Collections.choseBy}/{statementId}`, updateChosenOptions);
+exports.onSetChoseBySettings = onDocumentWritten(
+	`/${Collections.choseBy}/{statementId}`,
+	updateChosenOptions
+);
 
 exports.newEvaluation = onDocumentCreated(
 	{ document: `/${Collections.evaluations}/{evaluationId}` },
@@ -150,8 +153,10 @@ exports.updateStatementWithViews = onDocumentCreated(
 );
 
 //statements settings
-exports.writeStatementSettings = onDocumentWritten(`/${Collections.statementsSettings}/{statementId}`, updateSettings);
-
+exports.writeStatementSettings = onDocumentWritten(
+	`/${Collections.statementsSettings}/{statementId}`,
+	updateSettings
+);
 
 //http requests
 const isProduction = process.env.NODE_ENV === 'production';

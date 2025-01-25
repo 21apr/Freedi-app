@@ -1,4 +1,4 @@
-import { Statement } from '@/types/Statement';
+import { Statement } from '@/types/statement/Statement';
 import { SimpleStatement } from './SimpleStatement';
 
 export function statementToSimpleStatement(

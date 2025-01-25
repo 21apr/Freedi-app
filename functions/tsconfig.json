@@ -9,6 +9,10 @@
 		"target": "es2017"
 	},
 	"compileOnSave": true,
+	"baseUrl": ".",
+	"paths": {
+		"@/*": ["../src/types"]
+	},
 	"include": ["src", "../src/types"],
 	"exclude": ["node_modules", "lib"]
 }

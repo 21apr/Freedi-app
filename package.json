@@ -24,12 +24,11 @@
 		"deploy:f:dev": "cd functions && npm run build && firebase use dev && firebase deploy --only functions",
 		"deploy:f:test": "cd functions && npm run build && firebase use test && firebase deploy --only functions",
 		"deploy": "npm run deploy:h && npm run deploy:f",
-		"deploy:dev": "npm run deploy:h:dev && npm run deploy:f",
+		"deploy:dev": "npm run deploy:h:dev && npm run deploy:f:dev",
 		"deploy:test": "npm run deploy:h:test && npm run deploy:f:test"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.5",
-		"delib-npm": "^5.4.77",
 		"firebase": "^11.0.2",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",

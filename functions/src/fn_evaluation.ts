@@ -1,28 +1,28 @@
 import { Change, logger } from 'firebase-functions/v1';
 import { db } from './index';
 import { DocumentSnapshot, FieldValue } from 'firebase-admin/firestore';
-import {
-	ChoseBy,
-	ChoseByEvaluationType,
-	Collections,
-	CutoffType,
-	Evaluation,
-	StageType,
-	User,
-	defaultChoseBySettings,
-} from 'delib-npm';
 import { FirestoreEvent } from 'firebase-functions/firestore';
 import {
 	safeParse,
 	validate,
 	validateStatement,
-} from '../../src/types/Validate';
+} from '../../src/types/statement/ValidateStatement';
 import {
 	Statement,
 	StatementType,
 	ValidationType,
-} from '../../src/types/Statement';
+} from '../../src/types/statement/Statement';
 import { statementToSimpleStatement } from '../../src/types/statement/simple/ToSimpleStatement';
+import { validateUser } from '../../src/types/user/ValidateUser';
+import {
+	ChoseBy,
+	ChoseByEvaluationType,
+	CutoffType,
+} from '../../src/types/ChoseBy/ChoseBy';
+import { Collections } from '../../src/types/collection/Collection';
+import { Evaluation } from '../../src/types/evaluation/Evaluation';
+import { StageType } from '../../src/types/stage/Stage';
+import { defaultChoseBySettings } from '../../src/types/ChoseBy/ValidateChoseBy';
 
 enum ActionTypes {
 	new = 'new',
@@ -49,9 +49,8 @@ export async function newEvaluation(event) {
 		if (!statement) throw new Error('statement does not exist');
 		updateParentStatementWithChosenOptions(statement.parentId);
 
-		//update evaluators that the statement was evaluated
-		const evaluator: User | undefined = statementEvaluation.evaluator;
-		if (!evaluator) throw new Error('evaluator is not defined');
+		const validUser = validateUser(statementEvaluation.evaluator);
+		if (!validUser) throw new Error('evaluator is not defined');
 
 		return;
 	} catch (error) {
